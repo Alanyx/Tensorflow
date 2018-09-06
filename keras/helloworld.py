@@ -24,7 +24,6 @@ import keras
 import numpy as np
 
 if __name__ == '__main__':
-
     ## 2.2生成数据
     # Generate dummy data
     # 生成一个1000*20维的向量
@@ -35,7 +34,6 @@ if __name__ == '__main__':
     y_train = keras.utils.to_categorical(np.random.randint(10, size=(1000, 1)), num_classes=10)
     x_test = np.random.random((100, 20))
     y_test = keras.utils.to_categorical(np.random.randint(10, size=(100, 1)), num_classes=10)
-
 
     ## 2.3构建模型
     model = Sequential()
