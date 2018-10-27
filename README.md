@@ -4,13 +4,14 @@ Tensorflow
 #个人TensorFlow学习记录
 
 ##book 
-《TensorFlow实战Google深度学习框架》
+1.《TensorFlow实战Google深度学习框架》
 
-## standford_cs20
-斯坦福大学的cs20课程
-
-##hkust
-香港科技大学tensorflow三天入门课程
+##standford_cs20
+斯坦福大学cs20课程
 
 ##keras
+keras练习与博客
 
+
+##questions_answers
+学习过程中的小结与疑惑解答
