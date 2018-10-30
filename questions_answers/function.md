@@ -1,6 +1,9 @@
 函数疑问与解答
 =======
 
+##tf.lin_space(start, stop, num, name=None)
+todo 待完成
+
 ##tf.multiply与tf.matmul的区别
 (代码见function.py)
 参见:https://blog.csdn.net/mumu_1233/article/details/78887068
@@ -42,3 +45,23 @@ ValueError: 如果transpose_a 和 adjoint_a, 或 transpose_b 和 adjoint_b 都�
 ~~~
 
 ###3.程序示例(代码见function.py)
+
+
+##tf.range(start, limit=None, delta=1, dtype=None, name='range')
+todo 待完成
+
+~~~
+todo 待完成
+Randomly Generated Constants
+
+tf.random_normal
+tf.truncated_normal
+tf.random_uniform
+tf.random_shuffle
+tf.random_crop
+tf.multinomial
+tf.random_gamma
+~~~ 
+
+ 
+

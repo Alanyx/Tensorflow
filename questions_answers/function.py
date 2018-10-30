@@ -7,6 +7,7 @@ import tensorflow as tf
 """
 tf.multiply与tf.matmul的区别:
 """
+
 #####################################################
 if __name__ == '__main__':
     # 两个矩阵对应的元素各自相乘
