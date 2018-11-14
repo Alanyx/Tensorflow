@@ -14,9 +14,9 @@ if __name__ == '__main__':
     #                        validate_indices=True,max_norm=None)
 
     # NCE loss（噪声对比估计损失函数）
-    tf.nn.nce_loss(weights=w, biases=b, labels=l, inputs=inputs, num_sampled=ns,
-                   num_classes=nc, num_true=1, sampled_values=None,
-                   remove_accidental_hits=False, partition_strategy="mod", name="nce_loss")
+    # tf.nn.nce_loss(weights=w, biases=b, labels=l, inputs=inputs, num_sampled=ns,
+    #                num_classes=nc, num_true=1, sampled_values=None,
+    #                remove_accidental_hits=False, partition_strategy="mod", name="nce_loss")
     ##########################################################
 
     ##########################################################
@@ -173,30 +173,80 @@ if __name__ == '__main__':
 
 
     ##########################################################
-    # 综合示例
-    tf.summary.scalar("loss", self.loss)
-    tf.summary.histogram("histogram loss", self.loss)
-    summary_op = tf.summary.merge_all()
+    # # 综合示例
+    # tf.summary.scalar("loss", self.loss)
+    # tf.summary.histogram("histogram loss", self.loss)
+    # summary_op = tf.summary.merge_all()
+    #
+    # saver = tf.train.Saver()  # defaults to saving all variables
+    #
+    # with tf.Session() as sess:
+    #     sess.run(tf.global_variables_initializer())
+    #     ckpt = tf.train.get_checkpoint_state(os.path.dirname('checkpoints/checkpoint'))
+    #     if ckpt and ckpt.model_checkpoint_path:
+    #         saver.restore(sess, ckpt.model_checkpoint_path)
+    #
+    #     writer = tf.summary.FileWriter('./graphs', sess.graph)
+    #     for index in range(10000):
+    #         ...
+    #
+    #         if (index + 1) % 1000 == 0:
+    #             saver.save(sess, 'checkpoints/skip-gram', index)
+    ##########################################################
 
-    saver = tf.train.Saver()  # defaults to saving all variables
 
+    ##########################################################
+    # control randomization
+    # op级别的随机种子
+    # my_var = tf.Variable(tf.truncated_normal((-1.0,1.0),stddev=0.1,seed=0))
+
+    # # 会话追踪随机状态
+    # # 情况1(每一次新的会话重新开始随机状态，见情况2)
+    # c = tf.random_uniform([],-10,10,seed=2)
+    #
+    # with tf.Session() as sess:
+    #     print(sess.run(c))      # 3.574932
+    #     print(sess.run(c))      # -5.9731865
+
+    # # 情况2(每一次新的会话重新开始随机状态)
+    # c = tf.random_uniform([], -10, 10, seed=2)
+    # with tf.Session() as sess:
+    #     print(sess.run(c))      # 3.574932
+    #
+    # with tf.Session() as sess:
+    #     print(sess.run(c))      # 3.574932
+
+    # 情况3(每一个操作保持自己的种子)
+    c = tf.random_uniform([], -10, 10, seed=2)
+    d = tf.random_uniform([], -10, 10, seed=2)
     with tf.Session() as sess:
-        sess.run(tf.global_variables_initializer())
-        ckpt = tf.train.get_checkpoint_state(os.path.dirname('checkpoints/checkpoint'))
-        if ckpt and ckpt.model_checkpoint_path:
-            saver.restore(sess, ckpt.model_checkpoint_path)
+        print(sess.run(c))      # 3.574932
+        print(sess.run(d))      # 3.574932
 
-        writer = tf.summary.FileWriter('./graphs', sess.graph)
-        for index in range(10000):
-            ...
+    # 图级别的种子（区别操作级别的种子）
+    tf.set_random_seed(2)
+    c = tf.random_uniform([], -10, 10)
+    d = tf.random_uniform([], -10, 10)
+    with tf.Session() as sess:
+        print(sess.run(c))      # 5.4490805
+        print(sess.run(d))      # -0.66099167
+    ##########################################################
 
-            if (index + 1) % 1000 == 0:
-                saver.save(sess, 'checkpoints/skip-gram', index)
+
     ##########################################################
+    # # 自动微分
+    # # tf.gradients(y,[xs]) 对列表[xs]中每一张张量求y的导数
+    # x = tf.Variable(2.0)
+    # y = 2.0*(x**3)
+    # z = 3.0+y**2
+    # grad_z = tf.gradients(z,[x,y])
+    # with tf.Session() as sess:
+    #     sess.run(x.initializer)
+    #     print(sess.run(grad_z))
+
     ##########################################################
-    ##########################################################
-    ##########################################################
-    ##########################################################
+
+
     ##########################################################
     ##########################################################
     ##########################################################
